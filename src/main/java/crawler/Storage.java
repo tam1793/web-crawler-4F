@@ -5,12 +5,14 @@
  */
 package crawler;
 
+import org.jsoup.nodes.Document;
+
 /**
  *
  * @author tam
  */
 public class Storage {
-    public void saveFile(String content, String fileName, int depth){
+    public static void saveFile(String url, Document content, int depth){
         
     }
 }
