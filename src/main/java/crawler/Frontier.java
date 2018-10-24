@@ -5,9 +5,14 @@
  */
 package crawler;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.PriorityQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -41,7 +46,24 @@ public class Frontier {
         return false;
     }
 
+    public static void setFileTypes(ArrayList<String> types){
+        fileTypes = types;
+    }
+    
     private static boolean filterUrl(String url) {
-        return false;
+        try {
+            URI uri = new URI(url);
+            String extension = new File(uri.getPath()).getName();
+            System.out.println(extension);
+            extension = extension.substring(extension.lastIndexOf(".") + 1);
+            if(fileTypes.contains(extension))
+            {
+                return true;
+            }
+            return false;
+        } catch (URISyntaxException ex) { //In case of not a right URL
+            Logger.getLogger(Frontier.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 }
