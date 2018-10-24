@@ -18,6 +18,7 @@ public class Crawler {
     public void run() {
         while (!Frontier.urlQueue.isEmpty()) {
             String url = (String) Frontier.urlQueue.poll();
+            // TODO: Get depth from urlQueue
             int depth = 0; // Lay tu Frontier. <url, depth>
 
             crawl(url, depth);
@@ -27,9 +28,13 @@ public class Crawler {
     }
 
     public void crawl(String url, int depth) {
-        if (Frontier.shouldVisit(url)) {
+        if (Frontier.shouldVisit(url, depth)) {
             Document pageDocument = request(url);
-            getLink(pageDocument, depth + 1);
+
+            if (depth < Frontier.MAX_DEPTH) {
+                getLink(pageDocument, depth + 1);
+            }
+            
             Storage.saveFile(url, pageDocument, depth);
         }
     }
@@ -44,7 +49,6 @@ public class Crawler {
         try {
             Document doc = Jsoup.connect(url).get();
             return doc;
-
         } catch (Exception exc) {
             System.err.println("ERR Request(): " + exc.getMessage());
         }
