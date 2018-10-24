@@ -20,9 +20,16 @@ public class Frontier {
     public static ArrayList<String> fileTypes = new ArrayList<String>();
     public static int MAX_URL_DEPTH = 16;
     public static int MAX_DEPTH = 7;
+    public static String SEED;
+
+    public static void initializeFrontier(String seed) {
+        SEED = seed;
+        urlQueue.add(seed);
+    }
 
     public static boolean shouldVisit(String url, int depth) {
-        return depth <= MAX_DEPTH && checkCrawledUrl(url) && filterUrl(url) && checkTraps(url);
+        // return depth <= MAX_DEPTH && checkCrawledUrl(url) && filterUrl(url) && checkTraps(url);
+        return true;
     }
 
     public static boolean checkCrawledUrl(String url) {
