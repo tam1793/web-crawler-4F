@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package main;
+import crawler.Crawler;
 import crawler.Frontier;
 /**
  *
@@ -15,8 +16,15 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         System.out.println("Running...");
+
+        // Add seed
+        String seed = "https://news.zing.vn/";
+        Frontier.initializeFrontier(seed);
+
+        // Start crawling
+        Crawler f4Cralwer = new Crawler();
+        f4Cralwer.run();
     }
     
 }

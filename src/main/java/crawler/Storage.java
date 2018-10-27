@@ -12,7 +12,7 @@ import org.jsoup.nodes.Document;
  * @author tam
  */
 public class Storage {
-    public static void saveFile(String url, Document content, int depth){
-        
+    public static void saveFile(String url, Document content, int depth) {
+        System.out.printf("%s - %d\n%s\n", url, depth, content.title());
     }
 }
