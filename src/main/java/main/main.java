@@ -5,6 +5,12 @@
  */
 package main;
 import crawler.Frontier;
+import crawler.Storage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 /**
  *
  * @author tam
