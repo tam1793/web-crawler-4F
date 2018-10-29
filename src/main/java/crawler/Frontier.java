@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class Frontier {
 
-    public static PriorityQueue urlQueue = new PriorityQueue();
+    public static PriorityQueue<Entity.UrlCrawle> urlQueue = new PriorityQueue<Entity.UrlCrawle>();
     public static HashSet<String> crawledUrl = new HashSet<String>();
     public static ArrayList<String> fileTypes = new ArrayList<String>();
     public static int MAX_URL_DEPTH = 16;
