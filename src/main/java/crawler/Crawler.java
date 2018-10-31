@@ -18,50 +18,53 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class Crawler {
-
+    
     public void run() throws IOException {
         while (!Frontier.urlQueue.isEmpty()) {
-            String url = Frontier.urlQueue.poll().url;
+            String url = Frontier.urlQueue.poll().getUrl();
             // TODO: Get depth from urlQueue
             int depth = 0; // Lay tu Frontier. <url, depth>
 
             crawl(url, depth);
-
+            
             break;
         }
     }
-
+    
     public void crawl(String url, int depth) throws IOException {
         if (Frontier.shouldVisit(url, depth)) {
             Document pageDocument = request(url);
-
+            
             if (depth < Frontier.MAX_DEPTH) {
                 getLink(pageDocument, depth + 1);
             }
-
+            
             Storage.saveFile(url, pageDocument, depth);
         }
     }
-
+    
     private static void getLink(Document doc, int depth) {
-        // To do: get link from Document
+        int count = 0;
         Elements linksOnPage = doc.select("a[href]");
         for (Element page : linksOnPage) {
+            count++;
             String urlCleaned = UrlCleaner.normalizeUrl(page.attr("abs:href"));
-//            System.out.println(urlCleaned);
+            System.out.println(urlCleaned.split("\\?")[0]);
             Entity.UrlCrawle el = new Entity.UrlCrawle(urlCleaned, depth);
-            if (!Frontier.urlQueue.contains(el)) {
+            
+            if (!Frontier.urlQueue.contains(el) && !Frontier.crawledUrl.contains(el.getUrl())) {
                 Frontier.urlQueue.add(el);
             }
         }
+        System.out.println("Counter Link: " + count);
+        System.out.println("--------------------------------------------------------");
+        System.out.println("Length Queue: " + Frontier.urlQueue.size());
         while (!Frontier.urlQueue.isEmpty()) {
             Entity.UrlCrawle item = Frontier.urlQueue.poll();
-            System.out.println(item.url);
-        }
-        // To do: normalize link
-        // To do: store normalized link in queue
+            System.out.println(item.getUrl());
+        }        
     }
-
+    
     private Document request(String url) {
         try {
             Document doc = Jsoup.connect(url).get();
@@ -69,10 +72,10 @@ public class Crawler {
         } catch (Exception exc) {
             System.err.println("ERR Request(): " + exc.getMessage());
         }
-
+        
         return null;
     }
-
+    
     public static void main(String[] args) throws IOException {
         Document document = Jsoup.connect("https://www.wikipedia.org").get();
         getLink(document, 0);
