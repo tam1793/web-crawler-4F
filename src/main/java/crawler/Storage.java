@@ -16,14 +16,15 @@ import org.jsoup.nodes.Document;
  */
 public class Storage {
     public static void saveFile(String url, Document content, int depth) throws IOException{
-        String fileName = url.replaceAll("https://","");
-        fileName = fileName.replaceAll("/", "");
-        fileName = fileName.replace(".", "-");
+        String fileName = "";
+        if(url.contains("https://"))
+            fileName = url.replace("https://","");
+        if(url.contains("http://"))
+            fileName = url.replace("http://","");
+        fileName = fileName.replace("/", "");
+        
         String filePath = "Storage";
-        for(int i=0;i<=depth;i++)
-        {
-            filePath = filePath + "\\" + "Depth"+ Integer.toString(i);
-        }
+        filePath = filePath + "\\" + "Depth" + Integer.toString(depth);
         File file = new File(filePath + "\\" + fileName + ".html");
         FileUtils.writeStringToFile(file, content.outerHtml(), "UTF-8");
     }
