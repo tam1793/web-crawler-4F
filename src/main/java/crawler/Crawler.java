@@ -31,8 +31,6 @@ public class Crawler {
             } catch (IOException e) {
                 System.out.println(e);
             }
-
-            break;
         }
     }
 
@@ -73,8 +71,8 @@ public class Crawler {
         System.out.println("--------------------------------------------------------");
         System.out.println("Length Queue: " + Frontier.urlQueue.size());
         // while (!Frontier.urlQueue.isEmpty()) {
-        //     Entity.UrlCrawle item = Frontier.urlQueue.poll();
-        //     System.out.println(item.getUrl());
+        // Entity.UrlCrawle item = Frontier.urlQueue.poll();
+        // System.out.println(item.getUrl());
         // }
     }
 
