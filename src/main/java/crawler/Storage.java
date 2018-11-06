@@ -24,8 +24,8 @@ public class Storage {
         fileName = fileName.replace("/", "");
         
         String filePath = "Storage";
-        filePath = filePath + "\\" + "Depth" + Integer.toString(depth);
-        File file = new File(filePath + "\\" + fileName + ".html");
+        filePath = filePath + "/" + "Depth" + Integer.toString(depth);
+        File file = new File(filePath + "/" + fileName + ".html");
         FileUtils.writeStringToFile(file, content.outerHtml(), "UTF-8");
     }
 }

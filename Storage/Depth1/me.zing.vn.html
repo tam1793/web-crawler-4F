@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <title>Zing Me - Mạng xã hội &amp; giải trí online lớn nhất Việt Nam</title> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <meta property="og:title" content="Zing Me - Mạng xã hội &amp; giải trí online lớn nhất Việt Nam"> 
+  <meta property="og:site_name" content="Zing Me - Mạng xã hội &amp; giải trí online lớn nhất Việt Nam"> 
+  <meta property="og:description" content="Zing Me giúp tìm bạn cũ, kết bạn mới, viết blog, chia sẻ hình ảnh, nghe nhạc, chơi game và tham gia nhiều sự kiện thú vị."> 
+  <meta property="og:image" content="http://img.me.zdn.vn/v3/images/login_zme_icon_feed.png"> 
+  <meta property="og:url" content="http://me.zing.vn/"> 
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"> 
+  <link href="http://css.me.zdn.vn/v4/font/Roboto/roboto_font-1.02.css" rel="stylesheet" type="text/css"> 
+  <link href="http://css.me.zdn.vn/v3/lm/css/style-1.24.css" type="text/css" rel="stylesheet"> 
+  <link href="http://css.me.zdn.vn/zmjs/zm.ui-1.87.css" media="screen" rel="stylesheet" type="text/css"> 
+  <link href="http://css.me.zdn.vn/v3/css/zmlogin-1.12.css" rel="stylesheet" type="text/css"> 
+  <link href="http://css.me.zdn.vn/v3/css/jcarousel.basic-1.01.css" rel="stylesheet" type="text/css"> 
+  <!--[if lte IE 8]><link href="http://css.me.zdn.vn/v3/css/fixie.css" rel="stylesheet" type="text/css" /><![endif]--> 
+ </head> 
+ <body style="background:top	center	no-repeat	url('http://img.me.zdn.vn/v3/images/zmlogin/login_bg.jpg')"> 
+  <div class="zmlogin_wrapper"> 
+   <div class="zmlogin_right"> 
+    <h1 class="zmlogin_heading">Đăng nhập</h1> 
+    <p class="login_errormsg" id="login_errormsg" style="display: none;"></p> 
+    <form class="zmloginform" id="frmLogin" name="frmLogin" action="https://sso3.zing.vn/login" method="post" enctype="application/x-www-form-urlencoded"> 
+     <input type="hidden" name="pid" value="25"> 
+     <input type="hidden" name="u1" value="http://login.me.zing.vn/login/success"> 
+     <input type="hidden" name="fp" value="http://login.me.zing.vn"> 
+     <input type="hidden" name="apikey" value="6c78e66f436d279ea62255a6dd96f1a1"> 
+     <div class="login_input " id="div_login_input"> 
+      <span class="input_icn"><em class="user"></em></span> 
+      <p class="input_text"><input name="u" id="u" value="" placeholder="Tên đăng nhập" type="text" maxlength="24" tabindex="1"></p> 
+     </div> 
+     <div class="login_input " id="div_pass_input"> 
+      <span class="input_icn"><em class="pass"></em></span> 
+      <p class="input_text"><input name="p" id="pp" value="" type="password" placeholder="Mật khẩu" maxlength="32" tabindex="2"></p> 
+     </div> 
+     <div class="login_sublink"> 
+      <a href="http://login.me.zing.vn/login/go?act=forgot" class="forgotpass" tabindex="4">Quên mật khẩu?</a> 
+      <p class="remember_login"> <input type="checkbox" name="longtime" id="remember" value="1" tabindex="3"> <label for="remember"><span class="checkbox"></span>Ghi nhớ đăng nhập</label> </p> 
+     </div> 
+     <a href="#" id="btnLogin" name="btnLogin" class="zmloginbtn" onclick="submitLogin();" tabindex="5">Đăng nhập</a> 
+    </form> 
+    <div class="login_othersocial"> 
+     <p>Hoặc đăng nhập bằng</p> 
+     <p class="zmlogin_socialbtns"> <a href="#" onclick="zmXLoginWg.openPopup('facebook');return false;" class="socialbtn fbbtn" tabindex="6"><em></em></a> <a href="#" onclick="zmXLoginWg.openPopup('google');return false;" class="socialbtn gplusbtn" tabindex="7"><em></em></a> <a href="#" onclick="zmXLoginWg.openPopup('yahoo');return false;" class="socialbtn yahoobtn" tabindex="8"><em></em></a> </p> 
+    </div> 
+    <div class="zmregarea"> 
+     <p>Bạn có tài khoản chưa?</p> 
+     <p id="btnRegister" class="zmregbtn"><a href="https://id.zing.vn/v2/register?apikey=1432b69e90d94c5d89ed3cde7b77338c&amp;pid=25&amp;next=http%3A%2F%2Fme.zing.vn%2Fcp%3Futm_source%3Dme.register" class="zmloginbtn" tabindex="9">Đăng ký tài khoản</a></p> 
+    </div> 
+    <div class="zmloginfooter"> 
+     <ul class="support_platform"> 
+      <li><a href="http://me.zing.vn/u/lm?src=login" target="_blank"><span class="apple_icon"></span>iOS</a></li> 
+      <li><a href="http://me.zing.vn/u/lm?src=login" target="_blank"><span class="android_icon"></span>Android</a></li> 
+      <!--<li><a href="http://me.zing.vn/u/lm?src=login" target="_blank"><span class="ipad_icon"></span>Ipad</a></li>--> 
+     </ul> 
+     <p class="copyright_text"> Công ty chủ quản: <strong>CÔNG TY CỔ PHẦN VNG</strong><br> Địa chỉ trụ sở: 322B Lý Thường Kiệt, Phường 14, Quận 10, Tp.HCM<br> Người chịu trách nhiệm: Lê Hồng Minh<br> Thư điện tử: info@vng.com.vn<br> Số điện thoại liên hệ: 1900561558<br> 274/GP-BTTTT do Bộ TT &amp; TT <br> cấp ngày 29 /06/2015<br> Cơ quan cấp phép: Bộ Thông tin và Truyền thông<br> <a href="http://appstore.zing.vn/thoa-thuan-su-dung?id=49" target="_blank" style="font-weight:bold;font-size: 14px">Thỏa thuận sử dụng</a><br> </p> 
+    </div> 
+   </div> 
+   <div class="zmlogin_left"> 
+    <div class="zmloginr_header"></div> 
+    <div class="slidebanner"> 
+     <!--                    <script type="text/javascript">
+                        (function(d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0];
+                            if (d.getElementById(id)) {return;}
+                            js = d.createElement(s); js.id = id;js.async = true;
+                            js.src = "http://st.123c.vn/js/zads-base.js";
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }(document, 'script', 'z2-jssdk'));
+
+                    </script>
+                    <div z2-width="630px" z2-height="0px"  z2-zoneid="42FCD0836034ADC3D9578433716DE2C3" class="z2-zads-zone"></div>--> 
+     <div class="jcarousel"> 
+      <ul id="banner_list"> 
+       <!--                            --> 
+      </ul> 
+     </div> 
+     <ul class="slidepaging"></ul> 
+    </div> 
+    <div class="zmtopapps"> 
+     <h3 class="zmtopapp_title"> <a href="" class="zmtopapp_more">Xem thêm</a> <strong class="texttitle"><span class="appstore_ico"></span>Kho ứng dụng</strong> </h3> 
+     <ul class="list_topapps" id="icon_list"> 
+      <!--                        --> 
+     </ul> 
+    </div> 
+   </div> 
+  </div> 
+  <div id="wc_event_id" style="display:none;"> 
+   <div class="popup_event"> 
+    <a class="closebtn" href="#" onclick="zm.hideLightBox();return false;"></a> 
+    <img src="http://img.me.zdn.vn/v3/lm/images/event_world_03.jpg"> 
+    <a class="androidstore" href="http://goo.gl/VG6F10"></a> 
+    <a class="iosstore" href="http://goo.gl/l032TT"></a> 
+    <a target="_blank" class="blog_event" href="http://me.zing.vn/zb/dt/supportuserzm/19331704?from=feed"><span class="rightarr"></span>Hướng dẫn tham gia sự kiện</a> 
+   </div> 
+  </div> 
+  <script type="text/javascript" src="http://static.me.zing.vn/zmjs/zmCore-1.56.min.js"></script> 
+  <script type="text/javascript" src="http://static.me.zing.vn/zmjs/zm.ui-2.51.min.js"></script> 
+  <script type="text/javascript" src="http://static.me.zing.vn/v3/js/jquery-1.9.1.js"></script> 
+  <script type="text/javascript" src="http://static.me.zing.vn/v3/js/jquery.jcarousel.min.js"></script> 
+  <script type="text/javascript" src="http://static.me.zing.vn/v3/js/jquery.jcarousel-autoscroll.min.js"></script> 
+  <script type="text/javascript">
+            window.zAsyncInit = function() {
+                zmeOpenWidget.init({
+                    apikey      : '1432b69e90d94c5d89ed3cde7b77338c',   
+                    callback     : 'loginCallBack',
+                    tpl : '4',
+                    pid : '25'
+                });                
+            };
+
+            function loginCallBack() {
+                var url = "http://me.zing.vn/wlc";
+                if (url != "") {
+                    window.location = url;
+                }
+            }
+            
+            (function(d){
+                var js, id = 'widget-jssdk', ref = d.getElementsByTagName('script')[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement('script'); js.id = id; js.async = true;
+                var t= Math.floor(Math.random()*10000);
+                js.src = "//open.id.zing.vn/widget/_static/openwidget.js?t="+t;
+                ref.parentNode.insertBefore(js, ref);
+            }(document));
+            
+        </script> 
+  <script type="text/javascript">
+            function submitLogin() {
+                var uname = zm('#u').val();
+                if (uname == undefined || uname == "") {
+                    zm('#div_login_input').addClass("error");
+                    zm('#login_errormsg').html("Vui lòng nhập tên đăng nhập.");
+                    zm('#login_errormsg').show();
+                    return false;
+                }
+                
+                var pass = zm('#pp').val();
+                if (pass == undefined || pass == "") {
+                    zm('#div_pass_input').addClass("error");
+                    zm('#login_errormsg').html("Vui lòng nhập mật khẩu.");
+                    zm('#login_errormsg').show();
+                    return false;
+                }
+                
+                setTimeout(function() {
+                    zm("#frmLogin").submit();
+                }, 500);
+                
+                return false;
+            }
+            
+            function showEventWorldCup(){
+                var html_popup = zm("#wc_event_id").html();
+                zm.showLightBox(html_popup);
+            }
+            
+            zm.ready(function() {
+                
+                zm('#u').focus();
+                zm("#pp").keypress(function(event) {
+                    if (event.keyCode == 13) {
+                        event.preventDefault();
+                        submitLogin();
+                    } else {
+                        zm('#div_login_input').removeClass("error");
+                        zm('#div_pass_input').removeClass("error");
+                        zm('#login_errormsg').hide();
+                    }
+                });
+                
+//                showEventWorldCup();
+            });
+        </script> 
+  <script type="text/javascript">          
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-27214191-1']);
+            _gaq.push(['_setDomainName', '.me.zing.vn']);
+	    _gaq.push(['_setAllowLinker', true]);
+	    _gaq.push(['_setAllowHash', false]);
+	    _gaq.push(['_trackPageview']);
+
+            _gaq.push(['z._setAccount', 'UA-4695288-1']);
+            _gaq.push(['z._setDomainName', '.zing.vn']);
+            _gaq.push(['z._setAllowLinker', true]);
+            _gaq.push(['z._setAllowHash', false]);
+            _gaq.push(['z._trackPageview']);
+            
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script> 
+  <script type="text/javascript">
+            function itemCallback(page, carouselItems) {
+                return '<li><a href="#' + page + '">' + page + '</a></li>';
+            }
+            
+            $.ajax({
+                type: 'POST',
+                url: 'http://me.zing.vn/dtb/ajax',
+                dataType: 'jsonp',
+                data: {action: 'get', pos: '58,59', appinfo: 1, count: '{58:6,59:8}'},
+                success: function(resp) {
+                    if (resp.error != 0 || !resp.data)
+                        return;
+
+                    var bannerHtml = '',
+                        iconHtml = '';
+
+                    $.each(resp.data, function() {
+                        if (this.pos == 58) {
+                            bannerHtml += '<li class="slideimgwrapper">\
+                                <a href="' + this.link + '" target="_blank">\
+                                    <img alt="' + this.apptitle + '" src="' + this.img + '">\
+                                </a>\
+                            </li>';
+                        } else if (this.pos == 59) {
+                            iconHtml += '<li>\
+                                <a href="' + this.link + '" class="topappcell ' + this.apptype + '">' +
+                                    (this.apptype == 'new' ? '<span class="thumbcorner_icn"></span>' : '') +
+                                    '<span class="topappthumb"><img src="' + this.appava + '" alt="' + this.apptitle + '"/></span>\
+                                    <span class="topappname">' + this.apptitle + '</span>\
+                                    <!--<span class="topapp_view">' + this.appa30 + ' lượt chơi</span>-->\
+                                </a>\
+                            </li>';
+                        }
+                    });
+
+                    $('#banner_list').html(bannerHtml);
+                    $('#icon_list').html(iconHtml);
+
+                    $('.jcarousel')
+                        .jcarousel({
+                            wrap: 'circular'
+                        })
+                        .jcarouselAutoscroll({
+                            interval: 3000,
+                            target: '+=1',
+                            autostart: true
+                        });
+
+                    $('.slidepaging')
+                        .on('jcarouselpagination:active', 'a', function() {
+                            $(this).addClass('selected');
+                        })
+                        .on('jcarouselpagination:inactive', 'a', function() {
+                            $(this).removeClass('selected');
+                        })
+                        .jcarouselPagination();
+//                        .jcarouselPagination({
+//                            'perPage':1,
+//                            'item': itemCallback
+//                        });
+                    }
+            });
+			
+        </script> 
+  <script type="text/javascript" src="http://static.me.zing.vn/v3/zds/zt-1.02.min.js"></script> 
+  <!--<script type="text/javascript" src="http://static.me.zing.vn/v3/js/cat_sprites-1.12.js"></script>-->   
+ </body>
+</html>
