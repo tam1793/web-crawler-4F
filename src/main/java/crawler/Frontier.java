@@ -41,10 +41,10 @@ public class Frontier {
     }
 
     private static boolean checkTraps(String url) {
-        return isURLOverDepth(url);
+        return isURLOverDepth(url) || isRepetitiveURL(url) || isDuplicatedURL(url);
     }
 
-    public static boolean isURLOverDepth(String url) {
+    private static boolean isURLOverDepth(String url) {
         String[] temp = url.split("/");
         if (temp.length > MAX_URL_DEPTH) {
             return true;
@@ -52,18 +52,65 @@ public class Frontier {
         return false;
     }
 
-    public static void setFileTypes(ArrayList<String> types){
+    private static boolean isRepetitiveURL(String url) {
+        String[] temp = url.split("/");
+        int index = 1;
+        int startIndex = 1;
+        boolean canBeDuplicated = false;
+        for (int i = 1; i < temp.length - 1; i++) {
+            canBeDuplicated = false;
+            for (int j = i + 1; j < temp.length; j++) {
+                if (!canBeDuplicated) {
+                    if (temp[j].equals(temp[i])) {
+                        canBeDuplicated = true;
+                        index = i + 1;
+                        startIndex = j;
+                    }
+                } else {
+                    if (temp[index].equals(temp[j])) {
+                        index++;
+                    } else {
+                        canBeDuplicated = false;
+                    }
+                    if (index == startIndex) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean isDuplicatedURL(String url) {
+        String[] temp = url.split("/");
+        int duplicatedTimes;
+        for (int i = 1; i < temp.length - 1; i++) {
+            duplicatedTimes = 1;
+            for (int j = i + 1; j < temp.length; j++) {
+              if (temp[i].equals(temp[j]))
+              {
+                  duplicatedTimes++;
+              }
+              if (duplicatedTimes >= 3)
+              {
+                  return true;
+              }
+            }
+        }
+        return false;
+    }
+
+    public static void setFileTypes(ArrayList<String> types) {
         fileTypes = types;
     }
-    
+
     private static boolean filterUrl(String url) {
         try {
             URI uri = new URI(url);
             String extension = new File(uri.getPath()).getName();
             System.out.println(extension);
             extension = extension.substring(extension.lastIndexOf(".") + 1);
-            if(fileTypes.contains(extension))
-            {
+            if (fileTypes.contains(extension)) {
                 return true;
             }
             return false;
