@@ -5,6 +5,9 @@
  */
 package crawler;
 
+import java.io.File;
+import java.io.IOException;
+import org.apache.commons.io.FileUtils;
 import org.jsoup.nodes.Document;
 
 /**
@@ -12,7 +15,17 @@ import org.jsoup.nodes.Document;
  * @author tam
  */
 public class Storage {
-    public static void saveFile(String url, Document content, int depth) {
-        System.out.printf("%s - %d\n%s\n", url, depth, content.title());
+    public static void saveFile(String url, Document content, int depth) throws IOException{
+        String fileName = "";
+        if(url.contains("https://"))
+            fileName = url.replace("https://","");
+        if(url.contains("http://"))
+            fileName = url.replace("http://","");
+        fileName = fileName.replace("/", "");
+        
+        String filePath = "Storage";
+        filePath = filePath + "\\" + "Depth" + Integer.toString(depth);
+        File file = new File(filePath + "\\" + fileName + ".html");
+        FileUtils.writeStringToFile(file, content.outerHtml(), "UTF-8");
     }
 }

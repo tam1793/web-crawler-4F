@@ -4,8 +4,13 @@
  * and open the template in the editor.
  */
 package main;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import crawler.Crawler;
 import crawler.Frontier;
+
 /**
  *
  * @author tam
@@ -16,15 +21,18 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Running...");
+        // System.out.println("Running...");
 
-        // Add seed
-        String seed = "https://news.zing.vn/";
-        Frontier.initializeFrontier(seed);
+        // // Add seed
+        // String seed = "https://news.zing.vn/";
+        // Frontier.initializeFrontier(seed);
 
-        // Start crawling
-        Crawler f4Cralwer = new Crawler();
-        f4Cralwer.run();
+        // // Start crawling
+        // try {
+        // Crawler f4Cralwer = new Crawler();
+        // f4Cralwer.run();
+        // } catch (Exception e) {
+
+        // }   
     }
-    
 }
