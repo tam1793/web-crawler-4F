@@ -10,6 +10,7 @@ import org.jsoup.nodes.Document;
 
 import crawler.Crawler;
 import crawler.Frontier;
+import crawler.Entity.UrlCrawle;
 
 /**
  *
@@ -21,18 +22,16 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // System.out.println("Running...");
+        System.out.println("Running...");
 
-        // // Add seed
-        // String seed = "https://news.zing.vn/";
-        // Frontier.initializeFrontier(seed);
+        // Add seed
 
-        // // Start crawling
-        // try {
-        // Crawler f4Cralwer = new Crawler();
-        // f4Cralwer.run();
-        // } catch (Exception e) {
+        UrlCrawle seed = new UrlCrawle("https://news.zing.vn/", 0);
+        Frontier.urlQueue.add(seed);
 
-        // }   
+        // Start crawling
+        Crawler f4Cralwer = new Crawler();
+        f4Cralwer.run();
+
     }
 }

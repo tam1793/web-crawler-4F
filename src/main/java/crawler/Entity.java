@@ -25,6 +25,10 @@ public class Entity {
             return this.url;
         }
 
+        public int getDepth() {
+            return this.deth;
+        }
+
         @Override
         public boolean equals(Object o) {
             UrlCrawle conpare = (UrlCrawle) o;
@@ -35,6 +39,5 @@ public class Entity {
         public int compareTo(UrlCrawle o) {
             return this.url.compareTo(o.url);
         }
-
     }
 }
