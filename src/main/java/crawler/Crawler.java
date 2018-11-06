@@ -11,6 +11,7 @@ package crawler;
  */
 import com.shekhargulati.urlcleaner.UrlCleaner;
 import java.io.IOException;
+import java.util.Date;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -35,14 +36,13 @@ public class Crawler {
     }
 
     public void crawl(String url, int depth) throws IOException {
-        if (Frontier.shouldVisit(url, depth)) {
+            if (Frontier.shouldVisit(url, depth)) {
             Document pageDocument = request(url);
 
             if (pageDocument != null) {
                 if (depth < Frontier.MAX_DEPTH) {
                     getLink(pageDocument, depth + 1);
                 }
-
                 Storage.saveFile(url, pageDocument, depth);
             }
         }

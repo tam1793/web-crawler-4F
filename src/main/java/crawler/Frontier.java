@@ -28,16 +28,16 @@ public class Frontier {
     public static String SEED;
 
     public static void initializeFrontier(String seed) {
-       
+
     }
 
     public static boolean shouldVisit(String url, int depth) {
-        // return depth <= MAX_DEPTH && checkCrawledUrl(url) && filterUrl(url) && checkTraps(url);
-        return true;
+        return depth <= MAX_DEPTH && checkCrawledUrl(url) && filterUrl(url) && checkTraps(url);
+//        return true;
     }
 
     public static boolean checkCrawledUrl(String url) {
-        return crawledUrl.contains(url);
+        return !crawledUrl.contains(url);
     }
 
     private static boolean checkTraps(String url) {
@@ -87,14 +87,12 @@ public class Frontier {
         for (int i = 1; i < temp.length - 1; i++) {
             duplicatedTimes = 1;
             for (int j = i + 1; j < temp.length; j++) {
-              if (temp[i].equals(temp[j]))
-              {
-                  duplicatedTimes++;
-              }
-              if (duplicatedTimes >= 3)
-              {
-                  return true;
-              }
+                if (temp[i].equals(temp[j])) {
+                    duplicatedTimes++;
+                }
+                if (duplicatedTimes >= 3) {
+                    return true;
+                }
             }
         }
         return false;
