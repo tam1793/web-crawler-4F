@@ -31,7 +31,14 @@ public class Storage {
 
         String filePath = "Storage/" + FOLDER_NAME;
         filePath = filePath + "/" + "Depth" + Integer.toString(depth);
-        File file = new File(filePath + "/" + fileName + ".html");
+        String[] temp = fileName.split("/");
+         File file;
+        if (temp[temp.length - 1].contains(".")) {
+            file = new File(filePath + "/" + fileName);
+        } else {
+            file = new File(filePath + "/" + fileName + ".html");
+        }
+
         FileUtils.writeStringToFile(file, content.outerHtml(), "UTF-8");
     }
 }

@@ -49,9 +49,12 @@ public class main {
         try {
             Frontier.MAX_DEPTH = 7;
             ArrayList<String> types = new ArrayList<String>();
+            types.add("");
             types.add("html");
+            types.add("mp3");
+            types.add("shtml");
             Frontier.setFileTypes(types);
-            UrlCrawle seed = new UrlCrawle("https://mp3.zing.vn/", 0);
+            UrlCrawle seed = new UrlCrawle("http://data3.chiasenhac.com/downloads/1740/3/1739574-04b9b9a9/320/That%20Girl%20-%20Olly%20Murs%20(NhacPro.net).mp3", 0);
             Frontier.urlQueue.add(seed);
         } catch (Exception ex) {
             System.out.println("Error: -> " + ex.getMessage());

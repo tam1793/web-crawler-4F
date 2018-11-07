@@ -32,7 +32,7 @@ public class Frontier {
     }
 
     public static boolean shouldVisit(String url, int depth) {
-        return depth <= MAX_DEPTH && checkCrawledUrl(url) && filterUrl(url) && checkTraps(url);
+        return depth <= MAX_DEPTH && checkCrawledUrl(url) && filterUrl(url) && !checkTraps(url);
 //        return true;
     }
 
@@ -108,7 +108,7 @@ public class Frontier {
             String extension = new File(uri.getPath()).getName();
             System.out.println(extension);
             extension = extension.substring(extension.lastIndexOf(".") + 1);
-            if (fileTypes.contains(extension)) {
+            if (fileTypes.contains(extension) || extension == "") {
                 return true;
             }
             return false;

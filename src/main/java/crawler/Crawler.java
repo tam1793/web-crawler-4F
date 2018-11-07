@@ -22,7 +22,7 @@ public class Crawler {
 
     public void run() {
         while (!Frontier.urlQueue.isEmpty()) {
-            Entity.UrlCrawle currentURL = Frontier.urlQueue.poll();
+                              Entity.UrlCrawle currentURL = Frontier.urlQueue.poll();
             String url = currentURL.getUrl();
             int depth = currentURL.getDepth(); // Lay tu Frontier. <url, depth>
 
@@ -78,12 +78,12 @@ public class Crawler {
 
     private Document request(String url) {
         try {
-            Document doc = Jsoup.connect(url).get();
+            Document doc = Jsoup.connect(url).ignoreContentType(true).get();
             return doc;
         } catch (Exception exc) {
             System.err.println("ERR Request(): " + exc.getMessage());
         }
 
-        return null;
+             return null;
     }
 }
