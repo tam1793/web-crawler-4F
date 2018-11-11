@@ -26,7 +26,7 @@ public class main {
 
         // Add seed
 
-        UrlCrawle seed = new UrlCrawle("https://news.zing.vn/", 0);
+        UrlCrawle seed = new UrlCrawle("https://www.wikipedia.org/", 0);
         Frontier.urlQueue.add(seed);
 
         // Start crawling
