@@ -19,27 +19,19 @@ public class Storage {
     public static String FOLDER_NAME = "";
 
     public static void saveFile(String url, Document content, int depth) throws IOException {
-        String fileName = "";
-        if (url.contains("https://")) {
-            fileName = url.replace("https://", "");
-        }
-        if (url.contains("http://")) {
-            fileName = url.replace("http://", "");
-        }
-        System.out.println("fileName :" + fileName);
-        fileName = fileName.replace("/", "");
+        String fileName = content.title();
 
         String filePath = "Storage/" + FOLDER_NAME;
         filePath = filePath + "/" + "Depth" + Integer.toString(depth);
 
-        String[] temp = fileName.split("/");
-        File file;
-        if (temp[temp.length - 1].contains(".")) {
-            file = new File(filePath + "/" + fileName);
-        } else {
-            file = new File(filePath + "/" + fileName + ".html");
-        }
+        File htmlFile = new File(filePath + "/" + fileName + ".html");
+        File textFile = new File(filePath + "/" + fileName + ".txt");
 
-        FileUtils.writeStringToFile(file, content.outerHtml(), "UTF-8");
+        try {
+            FileUtils.writeStringToFile(htmlFile, content.outerHtml(), "UTF-8");
+            FileUtils.writeStringToFile(textFile, content.body().text(), "UTF-8");
+        } catch (Exception e) {
+
+        }
     }
 }
