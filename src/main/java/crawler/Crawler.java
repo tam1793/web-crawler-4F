@@ -23,6 +23,7 @@ import crawler.Entity.UrlCrawle;
 
 public class Crawler extends Thread {
     public static int MAX_THREAD = 0;
+    
 
     @Override
     public void run() {
@@ -49,6 +50,7 @@ public class Crawler extends Thread {
                     getLink(pageDocument, depth + 1, getHostname(url));
                 }
                 Storage.saveFile(url, pageDocument, depth);
+                System.out.println(url +" |D" + depth + " |C" + Frontier.crawledUrl.size());
             }
         }
     }
@@ -79,7 +81,6 @@ public class Crawler extends Thread {
 
     private Document request(String url) {
         try {
-            System.out.println("url: " + url);
             Document doc = Jsoup.connect(url).ignoreContentType(true).get();
             return doc;
         } catch (Exception exc) {

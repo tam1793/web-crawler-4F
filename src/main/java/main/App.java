@@ -6,8 +6,6 @@
 package main;
 
 import crawler.Crawler;
-import crawler.Frontier;
-import crawler.Entity.UrlCrawle;
 import crawler.Storage;
 import java.util.ArrayList;
 import java.util.Date;
