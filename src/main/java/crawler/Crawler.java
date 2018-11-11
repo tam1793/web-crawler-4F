@@ -5,19 +5,24 @@
  */
 package crawler;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  *
  * @author tam
  */
 import com.shekhargulati.urlcleaner.UrlCleaner;
-import java.io.IOException;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import crawler.Entity.UrlCrawle;
+
 public class Crawler extends Thread {
+    public static int MAX_THREAD = 0;
 
     @Override
     public void run() {
@@ -26,12 +31,10 @@ public class Crawler extends Thread {
             String url = currentURL.getUrl();
             int depth = currentURL.getDepth(); // Lay tu Frontier. <url, depth>
 
-            // System.out.printf("Crawling %s - remain: %d\n", url,
-            // Frontier.urlQueue.size());
             try {
                 crawl(url, depth);
             } catch (IOException e) {
-                System.out.println(e);
+                // System.out.println(e);
             }
         }
     }
@@ -72,13 +75,6 @@ public class Crawler extends Thread {
                 // System.out.println(e);
             }
         }
-        // System.out.println("Counter Link: " + count);
-        // System.out.println("--------------------------------------------------------");
-        // System.out.println("Length Queue: " + Frontier.urlQueue.size());
-        // while (!Frontier.urlQueue.isEmpty()) {
-        // Entity.UrlCrawle item = Frontier.urlQueue.poll();
-        // System.out.println(item.getUrl());
-        // }
     }
 
     private Document request(String url) {
@@ -87,7 +83,7 @@ public class Crawler extends Thread {
             Document doc = Jsoup.connect(url).ignoreContentType(true).get();
             return doc;
         } catch (Exception exc) {
-            System.err.println("ERR Request(): " + exc.getMessage());
+            // System.err.println("ERR Request(): " + exc.getMessage());
         }
 
         return null;
@@ -117,5 +113,15 @@ public class Crawler extends Thread {
         }
 
         return null;
+    }
+
+    public static void initializeCrawler(int maxThread, int maxDepth, ArrayList<String> filterTypes, String seedURL) {
+        Frontier.MAX_DEPTH = maxDepth;
+        Crawler.MAX_THREAD = maxThread;
+        
+        Frontier.setFileTypes(filterTypes);
+
+        UrlCrawle seed = new UrlCrawle(seedURL, 0);
+        Frontier.urlQueue.add(seed);
     }
 }

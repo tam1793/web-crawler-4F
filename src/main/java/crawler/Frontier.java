@@ -33,7 +33,7 @@ public class Frontier {
 
     public static boolean shouldVisit(String url, int depth) {
         return depth <= MAX_DEPTH && checkCrawledUrl(url) && filterUrl(url) && !checkTraps(url);
-//        return true;
+        // return true;
     }
 
     public static boolean checkCrawledUrl(String url) {
@@ -106,14 +106,14 @@ public class Frontier {
         try {
             URI uri = new URI(url);
             String extension = new File(uri.getPath()).getName();
-//            System.out.println(extension);
+            // System.out.println(extension);
             extension = extension.substring(extension.lastIndexOf(".") + 1);
             if (!fileTypes.contains(extension) || extension == "") {
                 return true;
             }
             return false;
-        } catch (URISyntaxException ex) { //In case of not a right URL
-            Logger.getLogger(Frontier.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (URISyntaxException ex) { // In case of not a right URL
+            // Logger.getLogger(Frontier.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
