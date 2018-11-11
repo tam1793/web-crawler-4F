@@ -23,7 +23,6 @@ import crawler.Entity.UrlCrawle;
 
 public class Crawler extends Thread {
     public static int MAX_THREAD = 0;
-    
 
     @Override
     public void run() {
@@ -50,7 +49,7 @@ public class Crawler extends Thread {
                     getLink(pageDocument, depth + 1, getHostname(url));
                 }
                 Storage.saveFile(url, pageDocument, depth);
-                System.out.println(url +" |D" + depth + " |C" + Frontier.crawledUrl.size());
+                System.out.println(Frontier.crawledUrl.size() + "| " + depth + " " + url);
             }
         }
     }
@@ -119,7 +118,7 @@ public class Crawler extends Thread {
     public static void initializeCrawler(int maxThread, int maxDepth, ArrayList<String> filterTypes, String seedURL) {
         Frontier.MAX_DEPTH = maxDepth;
         Crawler.MAX_THREAD = maxThread;
-        
+
         Frontier.setFileTypes(filterTypes);
 
         UrlCrawle seed = new UrlCrawle(seedURL, 0);
