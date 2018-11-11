@@ -22,20 +22,31 @@ import org.jsoup.select.Elements;
 import crawler.Entity.UrlCrawle;
 
 public class Crawler extends Thread {
-    public static int MAX_THREAD = 0;
+
+    public static int NUMBER_OF_THREAD = 0;
 
     @Override
     public void run() {
-        while (!Frontier.urlQueue.isEmpty()) {
-            Entity.UrlCrawle currentURL = Frontier.urlQueue.poll();
-            String url = currentURL.getUrl();
-            int depth = currentURL.getDepth(); // Lay tu Frontier. <url, depth>
+        while (true) {
+            Entity.UrlCrawle currentURL = getUrlInQueue();
+            if (currentURL != null) {
+                String url = currentURL.getUrl();
+                int depth = currentURL.getDepth(); // Lay tu Frontier. <url, depth>
 
-            try {
-                crawl(url, depth);
-            } catch (IOException e) {
-                // System.out.println(e);
+                try {
+                    crawl(url, depth);
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
             }
+        }
+    }
+
+    private synchronized static Entity.UrlCrawle getUrlInQueue() {
+        if (!Frontier.urlQueue.isEmpty()) {
+            return Frontier.urlQueue.poll();
+        } else {
+            return null;
         }
     }
 
@@ -50,6 +61,8 @@ public class Crawler extends Thread {
                 }
                 Storage.saveFile(url, pageDocument, depth);
                 System.out.println(Frontier.crawledUrl.size() + "| " + depth + " " + url);
+//                System.out.println(this.thread + " " + url);
+
             }
         }
     }
@@ -65,7 +78,6 @@ public class Crawler extends Thread {
                     }
 
                     String urlCleaned = UrlCleaner.normalizeUrl(currentURL);
-                    // System.out.println(urlCleaned.split("\\?")[0]);
                     Entity.UrlCrawle el = new Entity.UrlCrawle(urlCleaned.split("\\?")[0], depth);
 
                     if (!Frontier.urlQueue.contains(el) && !Frontier.crawledUrl.contains(el.getUrl())) {
@@ -98,7 +110,7 @@ public class Crawler extends Thread {
     }
 
     private static String getHostname(String url) {
-        String[] prefixes = { "http://", "https://" };
+        String[] prefixes = {"http://", "https://"};
 
         for (String prefix : prefixes) {
             int start = url.indexOf(prefix);
@@ -117,7 +129,7 @@ public class Crawler extends Thread {
 
     public static void initializeCrawler(int maxThread, int maxDepth, ArrayList<String> filterTypes, String seedURL) {
         Frontier.MAX_DEPTH = maxDepth;
-        Crawler.MAX_THREAD = maxThread;
+        Crawler.NUMBER_OF_THREAD = maxThread;
 
         Frontier.setFileTypes(filterTypes);
 

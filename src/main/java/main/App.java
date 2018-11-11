@@ -35,7 +35,7 @@ public class App {
             Crawler.initializeCrawler(7, 7, types, "https://news.zing.vn/");
             
             // Create threads
-            for (int i = 0; i < Crawler.MAX_THREAD; i++) {
+            for (int i = 0; i < Crawler.NUMBER_OF_THREAD; i++) {
                 Crawler f4Cralwer = new Crawler();
                 f4Cralwer.start();
             }
