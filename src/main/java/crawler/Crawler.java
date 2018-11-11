@@ -25,7 +25,8 @@ public class Crawler {
             String url = currentURL.getUrl();
             int depth = currentURL.getDepth(); // Lay tu Frontier. <url, depth>
 
-//            System.out.printf("Crawling %s - remain: %d\n", url, Frontier.urlQueue.size());
+            // System.out.printf("Crawling %s - remain: %d\n", url,
+            // Frontier.urlQueue.size());
             try {
                 crawl(url, depth);
             } catch (IOException e) {
@@ -41,22 +42,27 @@ public class Crawler {
 
             if (pageDocument != null) {
                 if (depth < Frontier.MAX_DEPTH) {
-                    getLink(pageDocument, depth + 1);
+                    getLink(pageDocument, depth + 1, getHostname(url));
                 }
                 Storage.saveFile(url, pageDocument, depth);
             }
         }
     }
 
-    private static void getLink(Document doc, int depth) {
+    private static void getLink(Document doc, int depth, String hostname) {
         int count = 0;
         Elements linksOnPage = doc.select("a[href]");
         for (Element page : linksOnPage) {
             try {
                 if (page.attr("abs:href") != "") {
                     count++;
-                    String urlCleaned = UrlCleaner.normalizeUrl(page.attr("abs:href"));
-//                    System.out.println(urlCleaned.split("\\?")[0]);
+                    String currentURL = page.attr("abs:href");
+                    if (currentURL.indexOf('/') == 0) {
+                        currentURL = currentURL.replace("/", hostname);
+                    }
+
+                    String urlCleaned = UrlCleaner.normalizeUrl(currentURL);
+                    // System.out.println(urlCleaned.split("\\?")[0]);
                     Entity.UrlCrawle el = new Entity.UrlCrawle(urlCleaned, depth);
 
                     if (!Frontier.urlQueue.contains(el) && !Frontier.crawledUrl.contains(el.getUrl())) {
@@ -67,9 +73,9 @@ public class Crawler {
                 System.out.println(e);
             }
         }
-//        System.out.println("Counter Link: " + count);
-//        System.out.println("--------------------------------------------------------");
-//        System.out.println("Length Queue: " + Frontier.urlQueue.size());
+        // System.out.println("Counter Link: " + count);
+        // System.out.println("--------------------------------------------------------");
+        // System.out.println("Length Queue: " + Frontier.urlQueue.size());
         // while (!Frontier.urlQueue.isEmpty()) {
         // Entity.UrlCrawle item = Frontier.urlQueue.poll();
         // System.out.println(item.getUrl());
@@ -82,6 +88,24 @@ public class Crawler {
             return doc;
         } catch (Exception exc) {
             System.err.println("ERR Request(): " + exc.getMessage());
+        }
+
+        return null;
+    }
+
+    private static String getHostname(String url) {
+        String[] prefixes = { "http://", "https://" };
+
+        for (String prefix : prefixes) {
+            int start = url.indexOf(prefix);
+
+            if (start != -1) {
+                String temp = url.substring(start + prefix.length());
+                if (temp.indexOf('/') == -1) {
+                    return temp;
+                }
+                return temp.substring(0, temp.indexOf("/") + 1).replace("/", "");
+            }
         }
 
         return null;
