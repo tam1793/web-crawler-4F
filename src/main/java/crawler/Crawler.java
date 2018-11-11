@@ -17,8 +17,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 
-public class Crawler {
+public class Crawler extends Thread {
 
+    @Override
     public void run() {
         while (!Frontier.urlQueue.isEmpty()) {
             Entity.UrlCrawle currentURL = Frontier.urlQueue.poll();
@@ -37,7 +38,7 @@ public class Crawler {
     public void crawl(String url, int depth) throws IOException {
         if (Frontier.shouldVisit(url, depth)) {
             Document pageDocument = request(url);
-            Frontier.crawledUrl.add(url);
+            addUrlIntocrawledUrl(url);
 
             if (pageDocument != null) {
                 if (depth < Frontier.MAX_DEPTH) {
@@ -56,15 +57,14 @@ public class Crawler {
                 if (page.attr("abs:href") != "") {
                     count++;
                     String urlCleaned = UrlCleaner.normalizeUrl(page.attr("abs:href"));
-//                    System.out.println(urlCleaned.split("\\?")[0]);
-                    Entity.UrlCrawle el = new Entity.UrlCrawle(urlCleaned, depth);
+                    Entity.UrlCrawle el = new Entity.UrlCrawle(urlCleaned.split("\\?")[0], depth);
 
                     if (!Frontier.urlQueue.contains(el) && !Frontier.crawledUrl.contains(el.getUrl())) {
-                        Frontier.urlQueue.add(el);
+                        addUrlIntoQueue(el);
                     }
                 }
             } catch (Exception e) {
-                System.out.println(e);
+//                System.out.println(e);
             }
         }
 //        System.out.println("Counter Link: " + count);
@@ -78,6 +78,7 @@ public class Crawler {
 
     private Document request(String url) {
         try {
+            System.out.println("url: " + url);
             Document doc = Jsoup.connect(url).ignoreContentType(true).get();
             return doc;
         } catch (Exception exc) {
@@ -85,5 +86,13 @@ public class Crawler {
         }
 
         return null;
+    }
+
+    private static void addUrlIntoQueue(Entity.UrlCrawle el) {
+        Frontier.urlQueue.add(el);
+    }
+
+    private static void addUrlIntocrawledUrl(String url) {
+        Frontier.crawledUrl.add(url);
     }
 }
