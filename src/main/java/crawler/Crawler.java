@@ -50,12 +50,10 @@ public class Crawler {
     }
 
     private static void getLink(Document doc, int depth, String hostname) {
-        int count = 0;
         Elements linksOnPage = doc.select("a[href]");
         for (Element page : linksOnPage) {
             try {
                 if (page.attr("abs:href") != "") {
-                    count++;
                     String currentURL = page.attr("abs:href");
                     if (currentURL.indexOf('/') == 0) {
                         currentURL = currentURL.replace("/", hostname);
