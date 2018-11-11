@@ -19,31 +19,19 @@ public class Storage {
     public static String FOLDER_NAME = "";
 
     public static void saveFile(String url, Document content, int depth) throws IOException {
-        String fileName = "";
-        String txtPath = "";
-        String htmlPath = "";
-        if (url.contains("https://")) {
-            fileName = url.replace("https://", "");
-        }
-        if (url.contains("http://")) {
-            fileName = url.replace("http://", "");
-        }
-        fileName = fileName.replace("/", "");
+        String fileName = content.title();
 
-        String filePath = "Storage/" + FOLDER_NAME + "/";
-        txtPath = filePath + "Text/Depth" + Integer.toString(depth);
-        htmlPath = filePath + "Html/Depth" + Integer.toString(depth);
-        String[] temp = fileName.split("/");
-        File htmlFile;
-        File txtFile;
-        txtFile = new File(txtPath + "/" + fileName + ".txt");
-        if (temp[temp.length - 1].contains(".")) {
-            htmlFile = new File(htmlPath + "/" + fileName);
-        } else {
-            htmlFile = new File(htmlPath + "/" + fileName + ">html");
-        }
+        String filePath = "Storage/" + FOLDER_NAME;
+        filePath = filePath + "/" + "Depth" + Integer.toString(depth);
 
-        FileUtils.writeStringToFile(htmlFile, content.outerHtml(), "UTF-8");
-        FileUtils.writeStringToFile(txtFile, content.toString());
+        File htmlFile = new File(filePath + "/" + fileName + ".html");
+        File textFile = new File(filePath + "/" + fileName + ".txt");
+
+        try {
+            FileUtils.writeStringToFile(htmlFile, content.outerHtml(), "UTF-8");
+            FileUtils.writeStringToFile(textFile, content.body().text(), "UTF-8");
+        } catch (Exception e) {
+
+        }
     }
 }

@@ -16,7 +16,7 @@ import java.util.Date;
  *
  * @author tam
  */
-public class main {
+public class App {
 
     /**
      * @param args the command line arguments
