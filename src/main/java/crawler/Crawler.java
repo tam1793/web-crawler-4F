@@ -11,7 +11,6 @@ package crawler;
  */
 import com.shekhargulati.urlcleaner.UrlCleaner;
 import java.io.IOException;
-import java.util.Date;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -22,11 +21,11 @@ public class Crawler {
 
     public void run() {
         while (!Frontier.urlQueue.isEmpty()) {
-                              Entity.UrlCrawle currentURL = Frontier.urlQueue.poll();
+            Entity.UrlCrawle currentURL = Frontier.urlQueue.poll();
             String url = currentURL.getUrl();
             int depth = currentURL.getDepth(); // Lay tu Frontier. <url, depth>
 
-            System.out.printf("Crawling %s - remain: %d\n", url, Frontier.urlQueue.size());
+//            System.out.printf("Crawling %s - remain: %d\n", url, Frontier.urlQueue.size());
             try {
                 crawl(url, depth);
             } catch (IOException e) {
@@ -36,8 +35,9 @@ public class Crawler {
     }
 
     public void crawl(String url, int depth) throws IOException {
-            if (Frontier.shouldVisit(url, depth)) {
+        if (Frontier.shouldVisit(url, depth)) {
             Document pageDocument = request(url);
+            Frontier.crawledUrl.add(url);
 
             if (pageDocument != null) {
                 if (depth < Frontier.MAX_DEPTH) {
@@ -56,7 +56,7 @@ public class Crawler {
                 if (page.attr("abs:href") != "") {
                     count++;
                     String urlCleaned = UrlCleaner.normalizeUrl(page.attr("abs:href"));
-                    System.out.println(urlCleaned.split("\\?")[0]);
+//                    System.out.println(urlCleaned.split("\\?")[0]);
                     Entity.UrlCrawle el = new Entity.UrlCrawle(urlCleaned, depth);
 
                     if (!Frontier.urlQueue.contains(el) && !Frontier.crawledUrl.contains(el.getUrl())) {
@@ -67,9 +67,9 @@ public class Crawler {
                 System.out.println(e);
             }
         }
-        System.out.println("Counter Link: " + count);
-        System.out.println("--------------------------------------------------------");
-        System.out.println("Length Queue: " + Frontier.urlQueue.size());
+//        System.out.println("Counter Link: " + count);
+//        System.out.println("--------------------------------------------------------");
+//        System.out.println("Length Queue: " + Frontier.urlQueue.size());
         // while (!Frontier.urlQueue.isEmpty()) {
         // Entity.UrlCrawle item = Frontier.urlQueue.poll();
         // System.out.println(item.getUrl());
@@ -84,6 +84,6 @@ public class Crawler {
             System.err.println("ERR Request(): " + exc.getMessage());
         }
 
-             return null;
+        return null;
     }
 }

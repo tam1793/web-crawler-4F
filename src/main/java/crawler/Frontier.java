@@ -106,9 +106,9 @@ public class Frontier {
         try {
             URI uri = new URI(url);
             String extension = new File(uri.getPath()).getName();
-            System.out.println(extension);
+//            System.out.println(extension);
             extension = extension.substring(extension.lastIndexOf(".") + 1);
-            if (fileTypes.contains(extension) || extension == "") {
+            if (!fileTypes.contains(extension) || extension == "") {
                 return true;
             }
             return false;

@@ -7,7 +7,6 @@ package crawler;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.nodes.Document;
 
@@ -27,12 +26,14 @@ public class Storage {
         if (url.contains("http://")) {
             fileName = url.replace("http://", "");
         }
+        System.out.println("fileName :" + fileName);
         fileName = fileName.replace("/", "");
 
         String filePath = "Storage/" + FOLDER_NAME;
         filePath = filePath + "/" + "Depth" + Integer.toString(depth);
+
         String[] temp = fileName.split("/");
-         File file;
+        File file;
         if (temp[temp.length - 1].contains(".")) {
             file = new File(filePath + "/" + fileName);
         } else {
