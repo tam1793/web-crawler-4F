@@ -1,0 +1,9 @@
+Phan cong webcrawler4f
+
+getLink(): Tam
+crawl(): Dat
+request(): Dat
+checkTraps(): Quyen
+filterUrl(): Quan
+shouldVisit(): Dat
+Storage.saveFile(): Tam
